@@ -1,49 +1,39 @@
-import Head from 'next/head'
+// pages/file-page.tsx
 
-const NewPage = () => {
-  const handleUploadFromComputer = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0]
-    // Handle file upload logic here
-  }
+import React, { useState } from 'react';
+import FileList from '../components/FileList';
+import FileViewer from '../components/FileViewer';
 
-  const handleUpload = () => {
-    // Placeholder function for future functionality
-  }
+interface File {
+  name: string;
+  contents: string;
+}
+
+const files: File[] = [
+  { name: 'File 1', contents: 'This is the contents of file 1.' },
+  { name: 'File 2', contents: 'This is the contents of file 2.' },
+  { name: 'File 3', contents: 'This is the contents of file 3.' },
+];
+
+const FilePage: React.FC = () => {
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+
+  const handleClick = (file: File) => {
+    setSelectedFile(file);
+  };
 
   return (
     <div>
-      <Head>
-        <title>Files</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
-      <main>
-        <h1>Your current files:</h1>
-        {/* <p>This is a new page in your Next.js application.</p> */}
-
-        <div className="container">
-          <div className="list-view">
-            <p>List item 1</p>
-            <p>List item 2</p>
-            <p>List item 3</p>
-            {/* Add more list items as needed */}
-          </div>
-
-          <div className="button-group">
-            <input type="file" onChange={handleUploadFromComputer} />
-            <button onClick={handleUpload}>Upload</button>
-          </div>
-        </div>
-      </main>
-
-      <style jsx>{`
-        main {
-          padding: 5rem 0;
-          text-align: center;
-        }
-      `}</style>
+      <FileList files={files} handleClick={handleClick} />
+      <div>
+        {selectedFile ? (
+          <FileViewer file={selectedFile} />
+        ) : (
+          <p>Select a file to view its contents.</p>
+        )}
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default NewPage
+export default FilePage;

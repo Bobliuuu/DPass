@@ -1,8 +1,6 @@
 import Head from 'next/head'
 import clientPromise from '../lib/mongodb'
 import { InferGetServerSidePropsType } from 'next'
-import Layout from '../components/layout';
-import NestedLayout from '../components/nested-layout';
 import Link from 'next/link';
 
 
@@ -48,7 +46,7 @@ export default function Home({
           <Link href="/">Home</Link>
         </li>
         <li>
-          <Link href="/filePage">File</Link>
+          <Link href="/FilePage">File</Link>
         </li>
         <li>
           <Link href="/blog/hello-world">Blog Post</Link>
