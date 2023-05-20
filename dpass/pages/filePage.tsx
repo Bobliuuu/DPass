@@ -23,7 +23,7 @@ const FilePage: React.FC = () => {
   };
 
   return (
-    <div>
+    <div className='container'>
       <FileList files={files} handleClick={handleClick} />
       <div>
         {selectedFile ? (
@@ -32,6 +32,15 @@ const FilePage: React.FC = () => {
           <p>Select a file to view its contents.</p>
         )}
       </div>
+
+      <style jsx>{`
+        .container {
+          display: flex;
+          flex-direction: row;
+          border: 3px solid red;
+        }
+      `}</style>
+
     </div>
   );
 };
