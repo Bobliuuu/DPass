@@ -15,7 +15,7 @@ interface FileListProps {
 const FileList: React.FC<FileListProps> = ({ files, handleClick }) => {
   return (
     <div>
-      <h2>File List</h2>
+      <h2 className='text-blue-600'>File List</h2>
       <ul>
         {files.map((file, index) => (
           <li key={index} onClick={() => handleClick(file)}>
