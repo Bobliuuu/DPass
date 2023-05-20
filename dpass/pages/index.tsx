@@ -1,37 +1,12 @@
 import Head from 'next/head'
 import clientPromise from '../lib/mongodb'
 import { InferGetServerSidePropsType } from 'next'
+import { GetServerSideProps } from 'next';
 import Link from 'next/link';
-
-
-export async function getServerSideProps(context) {
-  return {
-    props: { isConnected: true },
-  }
-
-  // try {
-  //   await clientPromise
-  //   // `await clientPromise` will use the default database passed in the MONGODB_URI
-  //   // However you can use another database (e.g. myDatabase) by replacing the `await clientPromise` with the following code:
-  //   //
-  //   // `const client = await clientPromise`
-  //   // `const db = client.db("myDatabase")`
-  //   //
-  //   // Then you can execute queries against your database like so:
-  //   // db.find({}) or any of the MongoDB Node Driver commands
-
-  //   return {
-  //     props: { isConnected: true },
-  //   }
-  // } catch (e) {
-  //   console.error(e)
-  //   return {
-  //     props: { isConnected: false },
-  //   }
-  // }
-}
+import { connectToDatabase } from '../util/mongodb';
 
 export default function Home({
+  properties,
   isConnected,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   return (
@@ -52,6 +27,17 @@ export default function Home({
           <Link href="/blog/hello-world">Blog Post</Link>
         </li>
       </ul>
+
+    {/* how to use data from mongoDB */}
+      console.log(properties);
+      {/* {properties.map((property) => (
+        <div key={property._id}>
+          <h2>{property.name}</h2>
+          <p>{property.description}</p>
+        </div>
+      ))} */}
+
+
 
       <footer>
         <a
@@ -216,3 +202,19 @@ export default function Home({
     </div>
   )
 }
+
+interface Props {
+  properties: Record<string, unknown>[];
+}
+
+//grabs the data from mongoDB
+export const getServerSideProps: GetServerSideProps<Props> = async (context) => {
+  const { db } = await connectToDatabase();
+  const data = await db.collection('listingsAndReviews').find({}).limit(20).toArray();
+  const properties = JSON.parse(JSON.stringify(data));
+  console.log(properties);
+  return {
+    props: { properties },
+  };
+};
+
