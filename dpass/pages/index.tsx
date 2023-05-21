@@ -210,7 +210,7 @@ interface Props {
 //grabs the data from mongoDB
 export const getServerSideProps: GetServerSideProps<Props> = async (context) => {
   const { db } = await connectToDatabase();
-  const data = await db.collection('listingsAndReviews').find({}).limit(20).toArray();
+  const data = await db.collection('user').find({}).limit(20).toArray();
   const properties = JSON.parse(JSON.stringify(data));
   console.log(properties);
   return {
