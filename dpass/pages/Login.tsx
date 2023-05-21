@@ -1,86 +1,65 @@
-// pages/LoginPage.tsx
-
-import React, { useState } from 'react';
+import React, { useState, FormEvent, ChangeEvent } from 'react';
 
 const LoginPage: React.FC = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = (e: FormEvent) => {
     e.preventDefault();
 
     // Perform login logic here
     console.log(`Username: ${username}, Password: ${password}`);
-    
+
     // Reset form fields
     setUsername('');
     setPassword('');
   };
 
+  const handleUsernameChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setUsername(e.target.value);
+  };
+
+  const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setPassword(e.target.value);
+  };
+
   return (
-    <div className="container">
-      <h1>Login</h1>
-      <form onSubmit={handleLogin}>
-        <div>
-          <label htmlFor="username">Username:</label>
-          <input
-            type="text"
-            id="username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-          />
-        </div>
-        <div>
-          <label htmlFor="password">Password:</label>
-          <input
-            type="password"
-            id="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </div>
-        <button type="submit">Login</button>
-      </form>
-
-      <style jsx>{`
-        .container {
-          max-width: 400px;
-          margin: 0 auto;
-          padding: 20px;
-          border: 1px solid #ccc;
-          border-radius: 4px;
-        }
-
-        h1 {
-          text-align: center;
-        }
-
-        label {
-          display: block;
-          margin-bottom: 5px;
-        }
-
-        input {
-          width: 100%;
-          padding: 5px;
-          margin-bottom: 10px;
-        }
-
-        button {
-          display: block;
-          width: 100%;
-          padding: 10px;
-          background-color: #0070f3;
-          color: #fff;
-          border: none;
-          border-radius: 4px;
-          cursor: pointer;
-        }
-
-        button:hover {
-          background-color: #0053ad;
-        }
-      `}</style>
+    <div className="flex items-center justify-center h-screen">
+      <div className="w-80 p-6 bg-white rounded shadow">
+        <h1 className="text-2xl text-center mb-6">Login</h1>
+        <form onSubmit={handleLogin}>
+          <div className="mb-4">
+            <label htmlFor="username" className="block mb-1">
+              Username:
+            </label>
+            <input
+              type="text"
+              id="username"
+              value={username}
+              onChange={handleUsernameChange}
+              className="w-full px-3 py-2 border rounded"
+            />
+          </div>
+          <div className="mb-4">
+            <label htmlFor="password" className="block mb-1">
+              Password:
+            </label>
+            <input
+              type="password"
+              id="password"
+              value={password}
+              onChange={handlePasswordChange}
+              className="w-full px-3 py-2 border rounded"
+            />
+          </div>
+          <button
+            type="submit"
+            className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          >
+            Login
+          </button>
+        </form>
+      </div>
     </div>
   );
 };
