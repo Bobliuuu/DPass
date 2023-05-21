@@ -3,6 +3,7 @@
 import React from 'react';
 
 interface File {
+  name: string;
   contents: string;
 }
 
@@ -12,8 +13,9 @@ interface FileViewerProps {
 
 const FileViewer: React.FC<FileViewerProps> = ({ file }) => {
   return (
-    <div>
-      <h2>File Viewer</h2>
+    <div className='w-full'>
+      <h1 className="text-2xl mb-4">{file.name}</h1>
+
       <p>{file.contents}</p>
     </div>
   );
