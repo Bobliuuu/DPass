@@ -47,7 +47,7 @@ const Dashboard: React.FC = () => {
     <div className="flex flex-col items-center justify-center h-screen">
       <Head>
         <title>Buy Storage</title>
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="../public/DDriveTransparent.png" />
       </Head>
 
       <h1 className="text-2xl mb-4">Trade for Jackal</h1>

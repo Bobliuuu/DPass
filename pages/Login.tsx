@@ -1,4 +1,5 @@
 import React, { useState, FormEvent, ChangeEvent } from 'react';
+import Navbar from '../components/Navbar';
 
 const LoginPage: React.FC = () => {
   const [username, setUsername] = useState<string>('');

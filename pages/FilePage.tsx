@@ -13,9 +13,9 @@ interface File {
 }
 
 const initialFiles: File[] = [
-  { name: 'File 1', contents: 'This is the contents of file 1.' },
-  { name: 'File 2', contents: 'This is the contents of file 2.' },
-  { name: 'File 3', contents: 'This is the contents of file 3.' },
+  { name: 'API KEY (Payment Gateway)', contents: 'd8a92b4e5f93a57c8fd9b1e6a3d2' },
+  { name: 'Password', contents: 'P@ssw0rd!' },
+  { name: 'Code Snippet', contents: 'This is the contents of file 3.' },
 ];
 
 const FilePage: React.FC = () => {
@@ -62,6 +62,8 @@ const FilePage: React.FC = () => {
           <title>Files</title>
           <link rel="icon" href="/favicon.ico" />
         </Head>
+      <div className="h-32"></div> {/* Add the spacer */}
+
       <div className='flex-0.5 bg-gray-200 p-4 flex flex-col'>
         <div className='flex-grow'>
           <FileList files={files} handleClick={handleClick} handleDelete={handleDelete} setShowSendModal={setShowSendModal}/>

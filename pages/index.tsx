@@ -4,6 +4,7 @@ import { InferGetServerSidePropsType } from 'next'
 import { GetServerSideProps } from 'next';
 import Link from 'next/link';
 import { connectToDatabase } from '../util/mongodb';
+import Navbar from '../components/Navbar';
 
 export default function Home({
   properties,
@@ -13,9 +14,10 @@ export default function Home({
     <div className="container">
       <Head>
         <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="../public/DDriveTransparent.png" />
       </Head>
 
+      {/* <Navbar /> */}
       <ul>
         <li>
           <Link href="/">Home</Link>
