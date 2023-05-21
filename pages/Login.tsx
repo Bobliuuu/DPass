@@ -1,6 +1,6 @@
 import React, { useState, FormEvent, ChangeEvent } from 'react';
 import Navbar from '../components/Navbar';
-
+import Head from 'next/head'
 const LoginPage: React.FC = () => {
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
@@ -26,6 +26,10 @@ const LoginPage: React.FC = () => {
 
   return (
     <div className="flex items-center justify-center h-screen">
+      <Head>
+        <title>Login</title>
+        <link rel="icon" href="../public/DDriveTransparent.png" />
+      </Head>
       <div className="w-80 p-6 bg-white rounded shadow">
         <h1 className="text-2xl text-center mb-6">Login</h1>
         <form onSubmit={handleLogin}>

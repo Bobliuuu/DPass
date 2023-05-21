@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
+import Link from 'next/link'
+import Head from 'next/head'
 
 const Dashboard: React.FC = () => {
   const [walletID, setWalletID] = useState('');
@@ -19,8 +21,23 @@ const Dashboard: React.FC = () => {
 
   return (
     <div className="flex flex-col items-center justify-center h-screen">
+      <Head>
+        <title>Dashboard</title>
+        <link rel="icon" href="../public/DDriveTransparent.png" />
+      </Head>
       <h1 className="text-6xl font-bold mb-4 text-center">Welcome, User</h1>
-      <p className="text-2xl font-bold mb-4 mx-4 text-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse lectus urna, venenatis a est in, rutrum molestie odio. Etiam vestibulum accumsan augue, ac cursus dui dictum in. Fusce ac lectus cursus, sollicitudin turpis id, iaculis tellus. Morbi elementum enim eget eros scelerisque porttitor.</p>
+      <ol className="list-decimal my-8 ">
+        <li>
+          Go to {' '}
+          <a href="https://app.jackalprotocol.com/" className="text-blue-500 hover:underline">https://app.jackalprotocol.com/</a>
+        </li>
+        <li>Get access to your Keplr wallet</li>
+        <li>Connect it to Jackal</li>
+        <li>
+          Get Jackal coins using our transfer protocol{' '}
+          <Link href="/PurchasePage" className="text-blue-500 hover:underline">here</Link>
+        </li>
+      </ol>
 
       <div className="flex">
         <input

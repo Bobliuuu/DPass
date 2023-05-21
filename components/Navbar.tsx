@@ -22,19 +22,16 @@ const Navbar: React.FC = () => {
       <div className="flex items-center ml-auto">
         <ul className="flex space-x-4 mr-4"> {/* Add margin-right to create spacing */}
           <li>
-            <Link href="/">Home</Link>
-          </li>
-          <li>
-            <Link href="/FilePage">File</Link>
-          </li>
-          <li>
             <Link href="/Dashboard">Dashboard</Link>
+          </li>
+          <li>
+            <Link href="/FilePage">Files</Link>
           </li>
           <li>
             <Link href="/PurchasePage">Buy Storage</Link>
           </li>
         </ul>
-        <button className="ml-2" onClick={handleLogout}>Logout</button> {/* Add margin-left to create spacing */}
+        <button className="ml-1" onClick={handleLogout}>Logout</button> {/* Add margin-left to create spacing */}
       </div>
     </nav>
   );

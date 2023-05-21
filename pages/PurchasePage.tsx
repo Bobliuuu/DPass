@@ -15,7 +15,7 @@ const Dashboard: React.FC = () => {
     const value = parseFloat(e.target.value);
     setContents(e.target.value);
     if (!isNaN(value)) {
-      setJackalValue(value * 0.01);
+      setJackalValue(value * 0.0023077348);
     } else {
       setJackalValue(null);
     }
@@ -72,16 +72,16 @@ const Dashboard: React.FC = () => {
           <textarea
             value={contents}
             onChange={handleAmountChange}
-            className="border border-gray-300 rounded-md px-3 py-2 w-full h-12 resize-none"
+            className="border border-gray-300 rounded-md px-3 leading-loose py-2 w-full h-12 resize-none flex items-center"
             type="number"
           />
         </label>
         <label className="block mb-4">
           Jackal
           <textarea
-            value={jackalValue !== null ? jackalValue.toFixed(2) : ''}
+            value={jackalValue !== null ? jackalValue.toFixed(10) : ''}
             readOnly
-            className="border border-gray-300 rounded-md px-3 py-2 w-full h-12 resize-none bg-gray-100"
+            className="border border-gray-300 rounded-md px-3 leading-loose py-2 w-full h-12 resize-none bg-gray-100 flex items-center"
           />
         </label>
       </div>
