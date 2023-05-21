@@ -1,0 +1,8 @@
+Key-Type: RSA
+Key-Length: 2048
+Subkey-Type: RSA
+Subkey-Length: 2048
+Name-Real: Your Name
+Name-Email: your_email@example.com
+Expire-Date: 0
+%commit
