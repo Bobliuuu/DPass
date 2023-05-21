@@ -1,7 +1,10 @@
+// FilePage.tsx
+
 import React, { useState } from 'react';
 import FileList from '../components/FileList';
 import FileViewer from '../components/FileViewer';
 import FileAddModal from '../components/FileAddModal';
+import FileSendModal from '../components/FileSendModal';
 
 interface File {
   name: string;
@@ -18,6 +21,9 @@ const FilePage: React.FC = () => {
   const [files, setFiles] = useState(initialFiles);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [showAddModal, setShowAddModal] = useState(false);
+  const [showSendModal, setShowSendModal] = useState(false);
+  const [recipients, setRecipients] = useState<string[]>(['Recipient 1', 'Recipient 2', 'Recipient 3']);
+
 
   const handleUploadFromComputer = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -32,20 +38,28 @@ const FilePage: React.FC = () => {
     setSelectedFile(file);
   };
 
-  const handleAdd = (file) => {
+  const handleAdd = (file: File) => {
     setFiles([...files, file]);
     setShowAddModal(false);
   };
 
   const handleCloseModal = () => {
     setShowAddModal(false);
+    setShowSendModal(false);
   };
 
+  const handleDelete = (file: File) => {
+    const updatedFiles = files.filter((f) => f !== file);
+    setFiles(updatedFiles);
+    setSelectedFile(null);
+  };
+
+
   return (
-    <div className='flex flex-row h-screen border-2 border-red-500'>
-      <div className='flex-0.5 bg-gray-200 border-2 border-blue-500 p-4 flex flex-col'>
+    <div className='flex flex-row h-screen'>
+      <div className='flex-0.5 bg-gray-200 p-4 flex flex-col'>
         <div className='flex-grow'>
-          <FileList files={files} handleClick={handleClick} />
+          <FileList files={files} handleClick={handleClick} handleDelete={handleDelete} setShowSendModal={setShowSendModal}/>
         </div>
 
         <div className='mt-auto'>
@@ -72,9 +86,18 @@ const FilePage: React.FC = () => {
         </div>
 
         {showAddModal && <FileAddModal handleAdd={handleAdd} handleClose={handleCloseModal} />}
+        {showSendModal && (
+          <FileSendModal
+            handleClose={handleCloseModal}
+            recipients={recipients} // Pass the recipients prop
+            handleSend={(file, recipient) => {
+              // Handle sending the file to the selected recipient
+            }}
+          />
+        )}
       </div>
 
-      <div className='flex-1 w-full border-2 border-green-500 p-4 '>
+      <div className='flex-1 w-full p-4 '>
         {selectedFile ? (
           <FileViewer file={selectedFile} />
         ) : (

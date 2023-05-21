@@ -47,7 +47,7 @@ const FileAddModal: React.FC<FileAddModalProps> = ({ handleAdd, handleClose }) =
             <button type="submit" className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">
               Add
             </button>
-            <button type="button" onClick={handleClose} className="text-gray-500 hover:text-gray-600">
+            <button type="button" onClick={handleClose} className="text-gray-500 mt-2 hover:text-gray-600">
               Close
             </button>
           </div>
