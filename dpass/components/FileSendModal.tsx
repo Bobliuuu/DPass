@@ -17,6 +17,7 @@ const FileSendModal: React.FC<FileSendModalProps> = ({ handleSend, handleClose, 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     handleSend({ name: '', contents: '' }, selectedRecipient);
+    handleClose();
     setSelectedRecipient('');
   };
 

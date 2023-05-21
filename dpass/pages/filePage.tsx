@@ -5,6 +5,7 @@ import FileList from '../components/FileList';
 import FileViewer from '../components/FileViewer';
 import FileAddModal from '../components/FileAddModal';
 import FileSendModal from '../components/FileSendModal';
+import Head from 'next/head'
 
 interface File {
   name: string;
@@ -57,6 +58,10 @@ const FilePage: React.FC = () => {
 
   return (
     <div className='flex flex-row h-screen'>
+        <Head>
+          <title>Files</title>
+          <link rel="icon" href="/favicon.ico" />
+        </Head>
       <div className='flex-0.5 bg-gray-200 p-4 flex flex-col'>
         <div className='flex-grow'>
           <FileList files={files} handleClick={handleClick} handleDelete={handleDelete} setShowSendModal={setShowSendModal}/>

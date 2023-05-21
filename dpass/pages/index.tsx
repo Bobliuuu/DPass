@@ -24,7 +24,10 @@ export default function Home({
           <Link href="/FilePage">File</Link>
         </li>
         <li>
-          <Link href="/blog/hello-world">Blog Post</Link>
+          <Link href="/Dashboard">Dashboard</Link>
+        </li>
+        <li>
+          <Link href="/PurchasePage">Buy Storage</Link>
         </li>
       </ul>
 
