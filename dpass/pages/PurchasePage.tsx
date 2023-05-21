@@ -5,15 +5,25 @@ const Dashboard: React.FC = () => {
   const [currency, setCurrency] = useState<string[]>(['Solana', 'Ethereum', 'Dogecoin']);
   const [selectedCurrency, setSelectedCurrency] = useState('');
   const [contents, setContents] = useState('');
-  const [jackalContents, setJackalContents] = useState('');
+  const [jackalValue, setJackalValue] = useState<number | null>(null);
   const router = useRouter();
+
+  const handleAmountChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const value = parseFloat(e.target.value);
+    setContents(e.target.value);
+    if (!isNaN(value)) {
+      setJackalValue(value * 0.01);
+    } else {
+      setJackalValue(null);
+    }
+  };
 
   const handleTransfer = () => {
     // Perform transfer logic here
     console.log('Transfer initiated');
     console.log('Selected Currency:', selectedCurrency);
     console.log('Amount:', contents);
-    console.log('Jackal Contents:', jackalContents);
+    console.log('Jackal Contents:', jackalValue);
 
     // Redirect back to the dashboard
     router.push('/dashboard');
@@ -41,7 +51,7 @@ const Dashboard: React.FC = () => {
         Amount
         <textarea
           value={contents}
-          onChange={(e) => setContents(e.target.value)}
+          onChange={handleAmountChange}
           className="border border-gray-300 rounded-md px-3 py-2 w-full h-12 resize-none"
           type="number"
         />
@@ -49,10 +59,9 @@ const Dashboard: React.FC = () => {
       <label className="block mb-4">
         Jackal
         <textarea
-          value={jackalContents}
-          onChange={(e) => setJackalContents(e.target.value)}
-          className="border border-gray-300 rounded-md px-3 py-2 w-full h-12 resize-none"
-          type="number"
+          value={jackalValue !== null ? jackalValue.toFixed(2) : ''}
+          readOnly
+          className="border border-gray-300 rounded-md px-3 py-2 w-full h-12 resize-none bg-gray-100"
         />
       </label>
       <button
