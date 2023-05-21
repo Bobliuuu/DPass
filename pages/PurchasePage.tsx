@@ -1,12 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import Head from 'next/head'
+import Head from 'next/head';
 
 const Dashboard: React.FC = () => {
   const [currency, setCurrency] = useState<string[]>(['Solana', 'Ethereum', 'Dogecoin']);
   const [selectedCurrency, setSelectedCurrency] = useState('');
   const [contents, setContents] = useState('');
   const [jackalValue, setJackalValue] = useState<number | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isTransferSuccessful, setIsTransferSuccessful] = useState(false);
   const router = useRouter();
 
   const handleAmountChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -20,15 +22,26 @@ const Dashboard: React.FC = () => {
   };
 
   const handleTransfer = () => {
-    // Perform transfer logic here
-    console.log('Transfer initiated');
-    console.log('Selected Currency:', selectedCurrency);
-    console.log('Amount:', contents);
-    console.log('Jackal Contents:', jackalValue);
-
-    // Redirect back to the dashboard
-    router.push('/dashboard');
+    setIsLoading(true);
+    setTimeout(() => {
+      setIsLoading(false);
+      setIsTransferSuccessful(true);
+      setTimeout(() => {
+        router.push('/FilePage');
+      }, 2000);
+    }, 2000);
   };
+
+  useEffect(() => {
+    if (isTransferSuccessful) {
+      const timer = setTimeout(() => {
+        setIsTransferSuccessful(false);
+      }, 2000);
+      return () => {
+        clearTimeout(timer);
+      };
+    }
+  }, [isTransferSuccessful]);
 
   return (
     <div className="flex flex-col items-center justify-center h-screen">
@@ -37,45 +50,51 @@ const Dashboard: React.FC = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <h1>Trade for Jackal</h1>
-      <label className="block mb-4">
-        Currency
-        <select
-          value={selectedCurrency}
-          onChange={(e) => setSelectedCurrency(e.target.value)}
-          className="border border-gray-300 rounded-md px-3 py-2 w-full mt-1 appearance-none focus:outline-none focus:border-blue-500"
-        >
-          <option value="">Select currency</option>
-          {currency.map((curr) => (
-            <option key={curr} value={curr}>
-              {curr}
-            </option>
-          ))}
-        </select>
-      </label>
-      <label className="block mb-4">
-        Amount
-        <textarea
-          value={contents}
-          onChange={handleAmountChange}
-          className="border border-gray-300 rounded-md px-3 py-2 w-full h-12 resize-none"
-          type="number"
-        />
-      </label>
-      <label className="block mb-4">
-        Jackal
-        <textarea
-          value={jackalValue !== null ? jackalValue.toFixed(2) : ''}
-          readOnly
-          className="border border-gray-300 rounded-md px-3 py-2 w-full h-12 resize-none bg-gray-100"
-        />
-      </label>
+      <h1 className="text-2xl mb-4">Trade for Jackal</h1>
+      <div className="w-96">
+        <label className="block mb-4">
+          Currency
+          <select
+            value={selectedCurrency}
+            onChange={(e) => setSelectedCurrency(e.target.value)}
+            className="border border-gray-300 rounded-md px-3 py-2 w-full mt-1 appearance-none focus:outline-none focus:border-blue-500"
+          >
+            <option value="">Select currency</option>
+            {currency.map((curr) => (
+              <option key={curr} value={curr}>
+                {curr}
+              </option>
+            ))}
+          </select>
+        </label>
+        <label className="block mb-4">
+          Amount
+          <textarea
+            value={contents}
+            onChange={handleAmountChange}
+            className="border border-gray-300 rounded-md px-3 py-2 w-full h-12 resize-none"
+            type="number"
+          />
+        </label>
+        <label className="block mb-4">
+          Jackal
+          <textarea
+            value={jackalValue !== null ? jackalValue.toFixed(2) : ''}
+            readOnly
+            className="border border-gray-300 rounded-md px-3 py-2 w-full h-12 resize-none bg-gray-100"
+          />
+        </label>
+      </div>
       <button
         onClick={handleTransfer}
         className="bg-blue-500 text-white px-4 py-2 rounded-md mt-4"
+        disabled={isLoading}
       >
-        Transfer
+        {isLoading ? 'Loading...' : 'Transfer'}
       </button>
+      {isTransferSuccessful && (
+        <p className="text-green-500 mt-2">Transfer successful. Redirecting...</p>
+      )}
     </div>
   );
 };
