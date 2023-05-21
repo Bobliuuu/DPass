@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
+import Head from 'next/head'
 
 const Dashboard: React.FC = () => {
   const [currency, setCurrency] = useState<string[]>(['Solana', 'Ethereum', 'Dogecoin']);
@@ -31,6 +32,11 @@ const Dashboard: React.FC = () => {
 
   return (
     <div className="flex flex-col items-center justify-center h-screen">
+      <Head>
+        <title>Buy Storage</title>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+
       <h1>Trade for Jackal</h1>
       <label className="block mb-4">
         Currency
